@@ -1,5 +1,4 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import { Provider } from "react-redux";
@@ -7,7 +6,6 @@ import store from "./src/Store/Index";
 import { AddShopList } from "./src/Components/AddShopList";
 import { ViewShoplist } from "./src/Components/ViewShoplist";
 
-const Stack = createStackNavigator();
 
 export default function App() {
   const [itemlistToEdit, setItemListToEdit] = React.useState(null);
@@ -38,7 +36,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    margin: "30px auto",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",

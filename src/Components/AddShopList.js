@@ -10,6 +10,7 @@ import {
   Modal,
   StyleSheet,
   Button,
+  FlatList,
 } from "react-native";
 
 export const AddShopList = ({ itemlistToEdit }) => {
@@ -36,24 +37,10 @@ export const AddShopList = ({ itemlistToEdit }) => {
 
   const handleAddList = (e) => {
     e.preventDefault();
-
-    // Check if the item already exists in the shoplistItems array
-    const existingItem = shoplistItems.find((item) => item.item === item);
-    if (existingItem) {
-      // If the item exists, update the quantity
-      setShoplistItems((prevItems) =>
-        prevItems.map((item) =>
-          item.item === existingItem.item
-            ? { ...item, quantity: item.quantity + Number(quantity) }
-            : item
-        )
-      );
-    } else {
-      // If the item does not exist, add a new item to the shoplistItems array
-      setShoplistItems((prevItems) => [
-        ...prevItems,
-        { item, quantity: Number(quantity), price },
-      ]);
+    let shoplist = {
+      item,
+      quantity,
+      price,
     }
 
     dispatch(addListToFirestore(shoplist));
@@ -63,30 +50,15 @@ export const AddShopList = ({ itemlistToEdit }) => {
     setPrice("");
   };
 
-  const incrementQuantity = (item) => {
-    setShoplistItems((prevItems) =>
-      prevItems.map((prevItem) =>
-        prevItem.item === item.item
-          ? { ...prevItem, quantity: prevItem.quantity + 1 }
-          : prevItem
-      )
-    );
-  };
-
   const handleUpdateList = (e) => {
     e.preventDefault();
 
-    const updatedItem = {
+    let shoplist = {
       item: editedItem,
-      quantity: Number(editedQuantity),
-      price: editedPrice,
-    };
-    setShoplistItems((prevItems) =>
-      prevItems.map((item) =>
-        item.item === itemlistToEdit.shoplist.item ? updatedItem : item
-      )
-    );
-    dispatch(updateShoplist({ id: itemlistToEdit.id, shoplist: updatedItem }));
+      quantity: editedQuantity,
+      price: editedPrice
+    }
+    dispatch(updateShoplist({ id: itemlistToEdit.id, shoplist }));
   };
 
   const toggleModal = () => {
@@ -124,7 +96,7 @@ export const AddShopList = ({ itemlistToEdit }) => {
           <TouchableOpacity title="Update Item" onPress={handleUpdateList} />
         </SafeAreaView>
       )}
-      <TouchableOpacity onPress={toggleModal} style={{border: "5px", borderColor: "blue"}}>
+      <TouchableOpacity onPress={toggleModal} style={{border: "5px", borderColor: "black", width: "50px", height: "30px"}}>
       <Text>Show Modal</Text>
       </TouchableOpacity>
       <Modal visible={isModalVisible} animationType="slide">
@@ -156,23 +128,6 @@ export const AddShopList = ({ itemlistToEdit }) => {
             />
           </View>
           <Button title="Add Item" onPress={handleAddList} />
-          {shoplistItems.length > 0 && (
-            <>
-              <FlatList
-                data={shoplistItems}
-                renderItem={({ item }) => (
-                  <View>
-                    <Text>{item.item}</Text>
-                    <Text>Quantity: {item.quantity}</Text>
-                    <TouchableOpacity onPress={() => incrementQuantity(item)}>
-                      <Text>Increment Quantity</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-                keyExtractor={(item) => item.item}
-              />
-            </>
-          )}
           <TouchableOpacity onPress={toggleModal} style={{border: "blue"}}>
             <Text>Close Modal</Text>
           </TouchableOpacity>
@@ -192,10 +147,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   modalContent: {
-    flex: 1,
+    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "whitesmoke",
     padding: 20,
+    textAlign: "left",
+    marginTop: 150,
   },
 });
