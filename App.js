@@ -11,7 +11,6 @@ function App() {
 
   const handleEditIcon = (shoplist) => {
     setItemListToEdit(shoplist);
-    ``;
   };
 
   const cancelUpdate = () => {
