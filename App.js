@@ -1,10 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
-import * as React from "react";
 import { StyleSheet, View } from "react-native";
 import { Provider } from "react-redux";
 import store from "./src/Store/Index";
-import { AddShopList } from "./src/Components/AddShopList";
-import { ViewShoplist } from "./src/Components/ViewShoplist";
 
 
 export default function App() {
