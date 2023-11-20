@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet, View } from "react-native";
-import { AddShopList } from "./src/Components/AddShopList";
+import AddShopList from "./src/Components/AddShopList";
 import { ShopList } from "./src/Components/ShopList";
 import { Provider } from "react-redux";
 import store from "./src/Store/Index";
@@ -38,19 +38,14 @@ function App() {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    margin: "30px auto",
+    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
   viewList: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    marginTop: "60px",
+    flex: 1,
+    marginTop: 60,
   },
 });
 

@@ -12,7 +12,7 @@ import {
   Button,
 } from "react-native";
 
-export const AddShopList = ({ itemlistToEdit }) => {
+const AddShopList = ({ itemlistToEdit }) => {
   const dispatch = useDispatch();
 
   const [item, setItem] = useState("");
