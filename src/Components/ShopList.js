@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteShopList, fetchList } from "../Store/ShopSlice";
-import { SafeAreaView, View, StyleSheet, TextInput, Card, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import FontAwesome, { trash, pen } from "react-native-fontawesome";
+import { SafeAreaView, View, StyleSheet, Card, Text, Pressable, TouchableOpacity ,Image } from "react-native";
 
-export const ViewShoplist = ({
+const ShopList = ({
   handleEditIcon,
   itemlistToEdit,
   cancelUpdate,
@@ -28,29 +26,33 @@ export const ViewShoplist = ({
         <>
           {data.map((newList) => (
             <SafeAreaView style={styles.list} key={newList.id}>
-              <Card>
+              <Card style={{ width: "100%", height: "200px", backgroundColor: "whitesmoke"}}>
                 <View style={styles.content}>
-                  <TextInput>{newList.shoplist.item}</TextInput>
+                  <Text>{newList.shoplist.item}</Text>
                   <View>
-                    <TextInput>{newList.shoplist.quantity}</TextInput>
-                    <TextInput>R{newList.shoplist.price}</TextInput>
+                    <Text>{newList.shoplist.quantity}</Text>
+                    <Text>R{newList.shoplist.price}</Text>
                   </View>
                 </View>
               </Card>
               <View style={{ display: "flex", flexWrap: "nowrap" }}>
                 {itemlistToEdit === null && (
-                  <TouchableOpacity onPress={() => handleDelete(newList.id)}>
-                    <FontAwesome style={{ fontSize: "22" }} icon={trash} />
-                  </TouchableOpacity>
+                  <Pressable onPress={() => handleDelete(newList.id)}>
+                    <Image src={require("../images/trash-can.png")} alt="trash-can" style={{width: "30px", height: "30px"}} />
+                  </Pressable>
                 )}
-                <TouchableOpacity onPress={() => handleEditIcon(newList)}>
-                  <FontAwesome style={{ fontSize: "22" }} icon={pen} />
-                </TouchableOpacity>
+                <Pressable onPress={() => handleEditIcon(newList)}>
+                  <Image src={require("../images/edit.png")} alt="edit icon" style={{width: "30px", height: "30px"}} />
+                </Pressable>
               </View>
             </SafeAreaView>
           ))}
           {itemlistToEdit === null ? (
-            <View>{<TouchableOpacity></TouchableOpacity>}</View>
+            <View>
+              {(
+                <TouchableOpacity></TouchableOpacity>
+              )}
+              </View>
           ) : (
             <TouchableOpacity onPress={cancelUpdate}>
               <Text>Cancel Update</Text>
@@ -84,3 +86,5 @@ const styles = StyleSheet.create({
   },
   content: {},
 });
+
+export default ShopList;

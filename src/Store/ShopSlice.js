@@ -60,8 +60,7 @@ const shopsSlice = createSlice({
     shoppingArray: [],
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(addListToFirestore.fulfilled, (state, action) => {
+      builder.addCase(addListToFirestore.fulfilled, (state, action) => {
         state.shoppingArray.push(action.payload);
       })
       .addCase(fetchList.fulfilled, (state, action) => {
@@ -74,9 +73,7 @@ const shopsSlice = createSlice({
       })
       .addCase(updateShoplist.fulfilled, (state, action) => {
         const { id, shoplist } = action.payload;
-        const shoplistIndex = state.shoppingArray.findIndex(
-          (shoplist) => shoplist.id === id
-        );
+        const shoplistIndex = state.shoppingArray.findIndex((shoplist) => shoplist.id === id)
         if (shoplistIndex !== -1) {
           state.shoppingArray[shoplistIndex] = { id: id, shoplist };
         }

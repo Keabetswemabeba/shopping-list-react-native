@@ -10,7 +10,6 @@ import {
   Modal,
   StyleSheet,
   Button,
-  FlatList,
 } from "react-native";
 
 export const AddShopList = ({ itemlistToEdit }) => {
@@ -24,7 +23,6 @@ export const AddShopList = ({ itemlistToEdit }) => {
   const [editedQuantity, setEditedQuantity] = useState("");
   const [editedPrice, setEditedPrice] = useState("");
 
-  const [shoplistItems, setShoplistItems] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
@@ -156,3 +154,5 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
 });
+
+export default AddShopList;
