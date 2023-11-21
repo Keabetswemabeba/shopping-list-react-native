@@ -18,20 +18,20 @@ function App() {
   };
 
   return (
+    <NavigationContainer>
       <View style={styles.container}>
         <View style={styles.viewList}>
-          <NavigationContainer>
-            <AddShopList itemlistToEdit={itemlistToEdit}
-            />
+          <Provider store={store}>
+            <AddShopList itemlistToEdit={itemlistToEdit} />
             <ShopList
               handleEditIcon={handleEditIcon}
               itemlistToEdit={itemlistToEdit}
               cancelUpdate={cancelUpdate}
             />
-          </NavigationContainer>
+          </Provider>
         </View>
       </View>
-    </Provider>
+    </NavigationContainer>
   );
 }
 

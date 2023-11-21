@@ -33,13 +33,12 @@ const AddShopList = ({ itemlistToEdit }) => {
     }
   }, [itemlistToEdit]);
 
-  const handleAddList = (e) => {
-    e.preventDefault();
+  const handleAddList = () => {
     let shoplist = {
       item,
       quantity,
       price,
-    }
+    };
 
     dispatch(addListToFirestore(shoplist));
 
@@ -48,14 +47,12 @@ const AddShopList = ({ itemlistToEdit }) => {
     setPrice("");
   };
 
-  const handleUpdateList = (e) => {
-    e.preventDefault();
-
+  const handleUpdateList = () => {
     let shoplist = {
       item: editedItem,
       quantity: editedQuantity,
-      price: editedPrice
-    }
+      price: editedPrice,
+    };
     dispatch(updateShoplist({ id: itemlistToEdit.id, shoplist }));
   };
 
@@ -64,67 +61,63 @@ const AddShopList = ({ itemlistToEdit }) => {
   };
 
   return (
-        <SafeAreaView style={styles.container}>
-          <View style={{ justifyContent: "space-between", textAlign: "left", }}>
-            <Text>Edited Item:</Text>
-            <TextInput
-              value={editedItem}
-              onChangeText={(text) => setEditedItem(text)}
-              placeholder="Enter edited item"
-            />
-          </View>
-          <View>
-            <Text>Edited Quantity:</Text>
-            <TextInput
-              value={editedQuantity}
-              onChangeText={(text) => setEditedQuantity(text)}
-              placeholder="Enter edited quantity"
-            />
-          </View>
-          <View>
-            <Text>Edited Price:</Text>
-            <TextInput
-              value={editedPrice}
-              onChangeText={(text) => setEditedPrice(text)}
-              placeholder="Enter edited price"
-            />
-          </View>
-          <TouchableOpacity title="Update Item" onPress={handleUpdateList} />
-        </SafeAreaView>
+    <SafeAreaView style={styles.container}>
+      {itemlistToEdit && (
+        <View style={styles.editContainer}>
+          <Text style={styles.label}>Edited Item:</Text>
+          <TextInput
+            value={editedItem}
+            onChangeText={(text) => setEditedItem(text)}
+            style={styles.input}
+            placeholder="Enter edited item"
+          />
+          <Text style={styles.label}>Edited Quantity:</Text>
+          <TextInput
+            value={editedQuantity}
+            onChangeText={(text) => setEditedQuantity(text)}
+            style={styles.input}
+            placeholder="Enter edited quantity"
+          />
+          <Text style={styles.label}>Edited Price:</Text>
+          <TextInput
+            value={editedPrice}
+            onChangeText={(text) => setEditedPrice(text)}
+            style={styles.input}
+            placeholder="Enter edited price"
+          />
+          <TouchableOpacity style={styles.button} onPress={handleUpdateList}>
+            <Text style={styles.buttonText}>Update Item</Text>
+          </TouchableOpacity>
+        </View>
       )}
-      <TouchableOpacity onPress={toggleModal} style={{border: "5px", borderColor: "black", width: "50px", height: "30px"}}>
-      <Text>Show Modal</Text>
+      <TouchableOpacity onPress={toggleModal} style={styles.showModalButton}>
+        <Text>Show Modal</Text>
       </TouchableOpacity>
       <Modal visible={isModalVisible} animationType="slide">
         <View style={styles.modalContent}>
-          {/* Content of the modal */}
-          {/* Add any additional components or text here */}
-          <View>
-            <Text>Item:</Text>
-            <TextInput
-              value={item}
-              onChangeText={(text) => setItem(text)}
-              placeholder="Enter item"
-            />
-          </View>
-          <View>
-            <Text>Quantity:</Text>
-            <TextInput
-              value={quantity}
-              onChangeText={(text) => setQuantity(text)}
-              placeholder="Enter quantity"
-            />
-          </View>
-          <View>
-            <Text>Price:</Text>
-            <TextInput
-              value={price}
-              onChangeText={(text) => setPrice(text)}
-              placeholder="Enter price"
-            />
-          </View>
+          <Text style={styles.label}>Item:</Text>
+          <TextInput
+            value={item}
+            onChangeText={(text) => setItem(text)}
+            style={styles.input}
+            placeholder="Enter item"
+          />
+          <Text style={styles.label}>Quantity:</Text>
+          <TextInput
+            value={quantity}
+            onChangeText={(text) => setQuantity(text)}
+            style={styles.input}
+            placeholder="Enter quantity"
+          />
+          <Text style={styles.label}>Price:</Text>
+          <TextInput
+            value={price}
+            onChangeText={(text) => setPrice(text)}
+            style={styles.input}
+            placeholder="Enter price"
+          />
           <Button title="Add Item" onPress={handleAddList} />
-          <TouchableOpacity onPress={toggleModal} style={{border: "blue"}}>
+          <TouchableOpacity onPress={toggleModal} style={styles.closeModalButton}>
             <Text>Close Modal</Text>
           </TouchableOpacity>
         </View>
@@ -135,21 +128,56 @@ const AddShopList = ({ itemlistToEdit }) => {
 
 const styles = StyleSheet.create({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    width: "300px",
-    backgroundColor: "#e4e4e4",
-    alignItems: "center",
+    flex: 1,
     justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#e4e4e4",
+  },
+  editContainer: {
+    width: "80%",
+    backgroundColor: "whitesmoke",
+    padding: 20,
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 10,
+  },
+  button: {
+    backgroundColor: "#007bff",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+  },
+  showModalButton: {
+    borderWidth: 1,
+    borderColor: "black",
+    width: 100,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
   },
   modalContent: {
-    display: "flex",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "whitesmoke",
     padding: 20,
-    textAlign: "left",
-    marginTop: 150,
+  },
+  closeModalButton: {
+    marginTop: 20,
   },
 });
 
