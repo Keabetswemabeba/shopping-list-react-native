@@ -64,8 +64,6 @@ const AddShopList = ({ itemlistToEdit }) => {
   };
 
   return (
-    <SafeAreaView style={{ display: "flex", marginBottom: "50vh" }}>
-      {itemlistToEdit && (
         <SafeAreaView style={styles.container}>
           <View style={{ justifyContent: "space-between", textAlign: "left", }}>
             <Text>Edited Item:</Text>

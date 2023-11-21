@@ -18,7 +18,6 @@ function App() {
   };
 
   return (
-    <Provider store={store}>
       <View style={styles.container}>
         <View style={styles.viewList}>
           <NavigationContainer>
