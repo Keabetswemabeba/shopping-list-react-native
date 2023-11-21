@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, SafeAreaView, StatusBar } from "react-native";
 import AddShopList from "./src/Components/AddShopList";
 import { ShopList } from "./src/Components/ShopList";
 import { Provider } from "react-redux";
@@ -19,7 +19,8 @@ function App() {
 
   return (
     <NavigationContainer>
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="dark-content" />
         <View style={styles.viewList}>
           <Provider store={store}>
             <AddShopList itemlistToEdit={itemlistToEdit} />
@@ -30,7 +31,7 @@ function App() {
             />
           </Provider>
         </View>
-      </View>
+      </SafeAreaView>
     </NavigationContainer>
   );
 }
@@ -41,10 +42,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   viewList: {
     flex: 1,
-    marginTop: 60,
+    marginTop: 20,
+    paddingHorizontal: 16,
   },
 });
 

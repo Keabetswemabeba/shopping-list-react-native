@@ -18,11 +18,13 @@ export const addListToFirestore = createAsyncThunk(
   }
 );
 
-export const fetchList = createAsyncThunk("shoplist/fetchList", async () => {
-  const querySnapshot = await getDocs(collection(db, "Shopping List"));
-  const shoplist = querySnapshot.docs.map((doc) => ({
-    id: doc.id,
-    shoplist: doc.data(),
+export const fetchList = createAsyncThunk(
+  "shoplist/fetchList",
+  async () => {
+    const querySnapshot = await getDocs(collection(db, "Shopping List"));
+    const shoplist = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      shoplist: doc.data(),
   }));
   return shoplist;
 });
